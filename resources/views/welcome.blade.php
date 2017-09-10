@@ -61,30 +61,30 @@
 
     <script>
 
-    $(document).ready({
+    $(document).ready(function() {
 
-        $("#dayButton").click({
+        $("#dayButton").click(function(){
             $.getJSON( "/state/day", function( data ) {
                 var feedback_state = data['requested_state'];
                 alert(feedback_state);
             });
         });
 
-        $("#autoButton").click({
+        $("#autoButton").click(function(){
             $.getJSON( "/state/auto", function( data ) {
                 var feedback_state = data['requested_state'];
                 alert(feedback_state);
             });
         });
 
-        $("#nightButton").click({
+        $("#nightButton").click(function(){
             $.getJSON( "/state/night", function( data ) {
                 var feedback_state = data['requested_state'];
                 alert(feedback_state);
             });
         });
 
-        $("#offButton").click({
+        $("#offButton").click(function(){
             $.getJSON( "/state/off", function( data ) {
                 var feedback_state = data['requested_state'];
                 alert(feedback_state);
