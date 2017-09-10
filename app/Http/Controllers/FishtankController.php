@@ -30,10 +30,7 @@ class FishtankController extends Controller
         //Setting::set('state', $state );
         Fishtank::set($state);
 
-        return response()->json([
-            'request' => 'ok',
-            'status' => '' //Setting::get('state', 'auto' )
-        ]);
+        return true;
     }
 
     public function day()
