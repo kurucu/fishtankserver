@@ -11,8 +11,8 @@ class Fishtank
     {
         $gpio = new GPIO();
 
-        $pin_day = $gpio->getOutputPin(13);
-        $pin_night = $gpio->getOutputPin(19);
+        $pin_day = $gpio->getOutputPin(33);
+        $pin_night = $gpio->getOutputPin(35);
 
         switch($state)
         {
