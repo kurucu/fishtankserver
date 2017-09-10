@@ -8,8 +8,8 @@ class Fishtank
 {
     public static function set($state)
     {
-        $file = "/etc/fishtank/mode.txt";
-        Storage::disk('fishtank')->put('mode.txt', $state);
+        $file = "mode.txt";
+        Storage::disk('fishtank')->put($file, $state . "\n");
 
         switch($state)
         {
