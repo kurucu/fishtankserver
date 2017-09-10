@@ -26,7 +26,8 @@ class FishtankController extends Controller
         Fishtank::set($state);
 
         return response()->json([
-            'requested_state' => $state
+            'requested_state' => $state,
+            'data' => Fishtank::data(),
         ]);;
     }
 

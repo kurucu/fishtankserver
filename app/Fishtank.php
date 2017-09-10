@@ -31,7 +31,7 @@ class Fishtank
         $sunrise = date_sunrise(time(), SUNFUNCS_RET_STRING, $latitude, $longitude);
         $sunset = date_sunset(time(), SUNFUNCS_RET_STRING, $latitude, $longitude);
 
-        return ( time() > $sunrise && time() < $sunset );
+        return ( time() >= $sunrise && time() <= $sunset );
     }
 
     public static function data()
@@ -39,6 +39,7 @@ class Fishtank
         return [
             'time' => time(),
             'timezone' => config('app.timezone'),
+            'daylight' => self::daylight(),
         ];
     }
 
