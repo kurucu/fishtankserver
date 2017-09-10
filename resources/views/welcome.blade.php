@@ -67,77 +67,73 @@
     function setState(state)
     {
         var url = "/state/" + state;
-        var feedback_state = '';
-        var setting = '';
-        var actual = '';
-        var data = [];
 
         $.getJSON( url, function( data ) {
-            feedback_state = data['requested_state'];
-            setting = data['data']['setting'];
-            actual = data['data']['actual'].trim();
-            data = data['data'];
+            var feedback_state = data['requested_state'];
+            var setting = data['data']['setting'];
+            var actual = data['data']['actual'].trim();
+            var data = data['data'];
+
+            switch(feedback_state)
+            {
+                case('day'):
+                    $("#dayButton").addClass('active');
+                    $("#autoButton").removeClass('active');
+                    $("#nightButton").removeClass('active');
+                    $("#offButton").removeClass('active');
+                    break;
+                case('night'):
+                    $("#dayButton").removeClass('active');
+                    $("#autoButton").removeClass('active');
+                    $("#nightButton").addClass('active');
+                    $("#offButton").removeClass('active');
+                    break;
+                case('off'):
+                    $("#dayButton").removeClass('active');
+                    $("#autoButton").removeClass('active');
+                    $("#nightButton").removeClass('active');
+                    $("#offButton").addClass('active');
+                    break;
+                default:
+                    $("#dayButton").removeClass('active');
+                    $("#autoButton").addClass('active');
+                    $("#nightButton").removeClass('active');
+                    $("#offButton").removeClass('active');
+            }
+
+            switch(actual)
+            {
+                case('day'):
+                    $('#stateDivision').addClass('bg-success');
+                    $('#stateDivision').removeClass('bg-dark');
+                    $('#stateDivision').removeClass('bg-secondary');
+                    $('#stateDivision').removeClass('bg-danger');
+                    $('#stateDivisionText').text("Day (" + setting + ")");
+                    break;
+                case('night'):
+                    $('#stateDivision').removeClass('bg-success');
+                    $('#stateDivision').addClass('bg-dark');
+                    $('#stateDivision').removeClass('bg-secondary');
+                    $('#stateDivision').removeClass('bg-danger');
+                    $('#stateDivisionText').text("Night (" + setting + ")");
+                    break;
+                case('off'):
+                    $('#stateDivision').removeClass('bg-success');
+                    $('#stateDivision').removeClass('bg-dark');
+                    $('#stateDivision').addClass('bg-secondary');
+                    $('#stateDivision').removeClass('bg-danger');
+                    $('#stateDivisionText').text("Off (" + setting + ")");
+                    break;
+                default:
+                    $('#stateDivision').removeClass('bg-success');
+                    $('#stateDivision').removeClass('bg-dark');
+                    $('#stateDivision').removeClass('bg-secondary');
+                    $('#stateDivision').addClass('bg-danger');
+                    $('#stateDivisionText').text("Unknown (" + setting + ")");
+            }
+
+            $('#backgroundData').text(JSON.stringify(data));
         });
-
-        switch(feedback_state)
-        {
-            case('day'):
-                $("#dayButton").addClass('active');
-                $("#autoButton").removeClass('active');
-                $("#nightButton").removeClass('active');
-                $("#offButton").removeClass('active');
-                break;
-            case('night'):
-                $("#dayButton").removeClass('active');
-                $("#autoButton").removeClass('active');
-                $("#nightButton").addClass('active');
-                $("#offButton").removeClass('active');
-                break;
-            case('off'):
-                $("#dayButton").removeClass('active');
-                $("#autoButton").removeClass('active');
-                $("#nightButton").removeClass('active');
-                $("#offButton").addClass('active');
-                break;
-            default:
-                $("#dayButton").removeClass('active');
-                $("#autoButton").addClass('active');
-                $("#nightButton").removeClass('active');
-                $("#offButton").removeClass('active');
-        }
-
-        switch(actual)
-        {
-            case('day'):
-                $('#stateDivision').addClass('bg-success');
-                $('#stateDivision').removeClass('bg-dark');
-                $('#stateDivision').removeClass('bg-secondary');
-                $('#stateDivision').removeClass('bg-danger');
-                $('#stateDivisionText').text("Day (" + setting + ")");
-                break;
-            case('night'):
-                $('#stateDivision').removeClass('bg-success');
-                $('#stateDivision').addClass('bg-dark');
-                $('#stateDivision').removeClass('bg-secondary');
-                $('#stateDivision').removeClass('bg-danger');
-                $('#stateDivisionText').text("Night (" + setting + ")");
-                break;
-            case('off'):
-                $('#stateDivision').removeClass('bg-success');
-                $('#stateDivision').removeClass('bg-dark');
-                $('#stateDivision').addClass('bg-secondary');
-                $('#stateDivision').removeClass('bg-danger');
-                $('#stateDivisionText').text("Off (" + setting + ")");
-                break;
-            default:
-                $('#stateDivision').removeClass('bg-success');
-                $('#stateDivision').removeClass('bg-dark');
-                $('#stateDivision').removeClass('bg-secondary');
-                $('#stateDivision').addClass('bg-danger');
-                $('#stateDivisionText').text("Unknown (" + setting + ")");
-        }
-
-        $('#backgroundData').text(JSON.stringify(data));
     }
 
     $(document).ready(function() {
