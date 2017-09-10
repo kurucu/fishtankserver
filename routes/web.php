@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FishtankController@index');
+
+Route::get('/set_state', 'FishtankController@set_state');
