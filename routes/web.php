@@ -13,4 +13,4 @@
 
 Route::get('/', 'FishtankController@index');
 
-Route::get('/set_state', 'FishtankController@set_state');
+Route::get('/state/{state?}', 'FishtankController@set_state');
