@@ -29,7 +29,7 @@ class Fishtank
         $longitude = config('fishtank.location.longitude');
 
         $sunrise = date_sunrise(time(), SUNFUNCS_RET_STRING, $latitude, $longitude);
-        $sunrise = date_sunset(time(), SUNFUNCS_RET_STRING, $latitude, $longitude);
+        $sunset = date_sunset(time(), SUNFUNCS_RET_STRING, $latitude, $longitude);
 
         return ( time() > $sunrise && time() < $sunset );
     }
