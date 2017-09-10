@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Support\Facades\Storage;
 
+use Carbon\Carbon;
+
 class Fishtank
 {
     public static function set($state)
@@ -28,16 +30,18 @@ class Fishtank
         $latitude = config('fishtank.location.latitude');
         $longitude = config('fishtank.location.longitude');
 
-        $sunrise = date_sunrise(time(), SUNFUNCS_RET_STRING, $latitude, $longitude);
-        $sunset = date_sunset(time(), SUNFUNCS_RET_STRING, $latitude, $longitude);
+        $now = Carbon::now();
 
-        return ( time() >= $sunrise && time() <= $sunset );
+        $sunrise = new Carbon(date_sunrise(time(), SUNFUNCS_RET_STRING, $latitude, $longitude));
+        $sunset = new Carbon(date_sunset(time(), SUNFUNCS_RET_STRING, $latitude, $longitude));
+
+        return ( $now->gt($sunrise) && $now->lt($sunset) );
     }
 
     public static function data()
     {
         return [
-            'time' => time(),
+            'time' => Carbon::now(),
             'timezone' => config('app.timezone'),
             'daylight' => self::daylight(),
         ];
