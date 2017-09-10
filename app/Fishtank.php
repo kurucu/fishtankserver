@@ -2,8 +2,7 @@
 
 namespace App;
 
-use \PiPHP\GPIO\GPIO;
-use \PiPHP\GPIO\Pin\PinInterface;
+use Illuminate\Support\Facades\Storage;
 
 class Fishtank
 {
