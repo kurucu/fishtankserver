@@ -38,7 +38,7 @@
 
         <div class="row mt-3">
             <div class="col">
-                <button type="button" class="btn btn-secondary btn-lg btn-block" id="offButton">Off</button>
+                <button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="offButton">Off</button>
             </div>
         </div>
 
@@ -132,7 +132,7 @@
                     $('#stateDivisionText').text("Unknown (" + setting + ")");
             }
 
-            $('#backgroundData').text(JSON.stringify(data));
+            //$('#backgroundData').text(JSON.stringify(data));
         });
     }
 
@@ -151,7 +151,7 @@
         });
 
         $("#offButton").click(function(){
-            etState("off");
+            setState("off");
         });
     });
 
