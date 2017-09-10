@@ -4,8 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "28e829d5e573723546924eba13ec3521",
+    "content-hash": "2118963502084ddd8d6586bcef51f259",
     "packages": [
+        {
+            "name": "anlutro/l4-settings",
+            "version": "0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anlutro/laravel-settings.git",
+                "reference": "8bbaa98a7962e0e6106eb98aae03cfcabe78d848"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anlutro/laravel-settings/zipball/8bbaa98a7962e0e6106eb98aae03cfcabe78d848",
+                "reference": "8bbaa98a7962e0e6106eb98aae03cfcabe78d848",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4.1 <6.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "illuminate/database": ">=4.1 <6.0",
+                "illuminate/filesystem": ">=4.1 <6.0",
+                "mockery/mockery": "0.9.*"
+            },
+            "suggest": {
+                "illuminate/database": "Save settings to a database table.",
+                "illuminate/filesystem": "Save settings to a JSON file."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "anlutro\\LaravelSettings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Lutro",
+                    "email": "anlutro@gmail.com"
+                }
+            ],
+            "description": "Persistent settings in Laravel.",
+            "time": "2017-03-06T09:37:21+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -954,46 +1000,6 @@
                 "random"
             ],
             "time": "2017-03-13T16:27:32+00:00"
-        },
-        {
-            "name": "piphp/gpio",
-            "version": "v0.3.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PiPHP/GPIO.git",
-                "reference": "5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PiPHP/GPIO/zipball/5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b",
-                "reference": "5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PiPHP\\GPIO\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andrew Carter",
-                    "email": "andrewcarter1992@gmail.com"
-                }
-            ],
-            "description": "A library for accessing the GPIO pins on a Raspberry Pi",
-            "keywords": [
-                "GPIO",
-                "pi",
-                "pin",
-                "pins",
-                "raspberry"
-            ],
-            "time": "2016-07-09T11:38:12+00:00"
         },
         {
             "name": "psr/container",
@@ -2142,60 +2148,6 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2016-09-20T12:50:39+00:00"
-        },
-        {
-            "name": "unisharp/laravel-settings",
-            "version": "2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/UniSharp/laravel-settings.git",
-                "reference": "83f93779200c1208034babdb9cbfb7e73c85dc5c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/UniSharp/laravel-settings/zipball/83f93779200c1208034babdb9cbfb7e73c85dc5c",
-                "reference": "83f93779200c1208034babdb9cbfb7e73c85dc5c",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/cache": ">=5.0.0",
-                "illuminate/database": ">=5.0.0",
-                "illuminate/support": ">=5.0.0",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9.9",
-                "phpunit/php-code-coverage": "^5.2",
-                "phpunit/phpunit": "^6.1"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/migrations"
-                ],
-                "psr-4": {
-                    "Unisharp\\Setting\\": "src/Setting/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Unisharp Ltd.",
-                    "email": "service@unisharp.com"
-                }
-            ],
-            "description": "Persistent settings manager for laravel, translations are supported.",
-            "keywords": [
-                "Settings",
-                "key-value",
-                "laravel",
-                "persistent",
-                "storage"
-            ],
-            "time": "2017-06-23T08:14:46+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

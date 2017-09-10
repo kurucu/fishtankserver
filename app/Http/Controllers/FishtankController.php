@@ -27,7 +27,7 @@ class FishtankController extends Controller
 
         $state = $request->input('state');
 
-        //Setting::set('state', $state );
+        Setting::set('state', $state );
         Fishtank::set($state);
 
         return true;
