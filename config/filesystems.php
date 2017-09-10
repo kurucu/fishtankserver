@@ -49,7 +49,7 @@ return [
         ],
 
         'fishtank' => [
-            'driver' => 'fishtank',
+            'driver' => 'local',
             'root' => '/etc/fishtank',
         ],
 
