@@ -17,8 +17,8 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-body bg-success text-white">
-                        <h1>Day (Auto)</h1>
+                    <div class="card-body bg-success text-white" id="stateDivision">
+                        <h1 id="stateDivisionText">Day (Auto)</h1>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,10 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        This is some info.
+                        <p>
+                            It can take up to 10 seconds for the tank to notice your command.
+                        </p>
+                        <pre id="backgroundData"></pre>
                     </div>
                 </div>
             </div>
@@ -61,34 +64,94 @@
 
     <script>
 
+    function setState(state)
+    {
+        var url = "/state/" + state;
+
+        $.getJSON( url, function( data ) {
+            var feedback_state = data['requested_state'];
+            var setting = data['data']['setting'];
+            var actual = data['data']['actual'].trim();
+            var data = data['data'];
+        });
+
+        switch(feedback_state)
+        {
+            case('day'):
+                $("#dayButton").addClass('active');
+                $("#autoButton").removeClass('active');
+                $("#nightButton").removeClass('active');
+                $("#offButton").removeClass('active');
+                break;
+            case('night'):
+                $("#dayButton").removeClass('active');
+                $("#autoButton").removeClass('active');
+                $("#nightButton").addClass('active');
+                $("#offButton").removeClass('active');
+                break;
+            case('off'):
+                $("#dayButton").removeClass('active');
+                $("#autoButton").removeClass('active');
+                $("#nightButton").removeClass('active');
+                $("#offButton").addClass('active');
+                break;
+            default:
+                $("#dayButton").removeClass('active');
+                $("#autoButton").addClass('active');
+                $("#nightButton").removeClass('active');
+                $("#offButton").removeClass('active');
+        }
+
+        switch(actual)
+        {
+            case('day'):
+                $('#stateDivision').addClass('bg-success');
+                $('#stateDivision').removeClass('bg-dark');
+                $('#stateDivision').removeClass('bg-secondary');
+                $('#stateDivision').removeClass('bg-danger');
+                $('#stateDivisionText').text("Day (" + setting + ")");
+                break;
+            case('night'):
+                $('#stateDivision').removeClass('bg-success');
+                $('#stateDivision').addClass('bg-dark');
+                $('#stateDivision').removeClass('bg-secondary');
+                $('#stateDivision').removeClass('bg-danger');
+                $('#stateDivisionText').text("Night (" + setting + ")");
+                break;
+            case('off'):
+                $('#stateDivision').removeClass('bg-success');
+                $('#stateDivision').removeClass('bg-dark');
+                $('#stateDivision').addClass('bg-secondary');
+                $('#stateDivision').removeClass('bg-danger');
+                $('#stateDivisionText').text("Off (" + setting + ")");
+                break;
+            default:
+                $('#stateDivision').removeClass('bg-success');
+                $('#stateDivision').removeClass('bg-dark');
+                $('#stateDivision').removeClass('bg-secondary');
+                $('#stateDivision').addClass('bg-danger');
+                $('#stateDivisionText').text("Unknown (" + setting + ")");
+        }
+
+        $('#backgroundData').text(JSON.stringify(data));
+    }
+
     $(document).ready(function() {
 
         $("#dayButton").click(function(){
-            $.getJSON( "/state/day", function( data ) {
-                var feedback_state = data['requested_state'];
-                alert(feedback_state);
-            });
+            setState("day");
         });
 
         $("#autoButton").click(function(){
-            $.getJSON( "/state/auto", function( data ) {
-                var feedback_state = data['requested_state'];
-                alert(feedback_state);
-            });
+            setState("auto");
         });
 
         $("#nightButton").click(function(){
-            $.getJSON( "/state/night", function( data ) {
-                var feedback_state = data['requested_state'];
-                alert(feedback_state);
-            });
+            setState("night");
         });
 
         $("#offButton").click(function(){
-            $.getJSON( "/state/off", function( data ) {
-                var feedback_state = data['requested_state'];
-                alert(feedback_state);
-            });
+            etState("off");
         });
     });
 
