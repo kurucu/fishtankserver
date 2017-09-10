@@ -9,38 +9,24 @@ class Fishtank
 {
     public static function set($state)
     {
-        $gpio = new GPIO();
-
-        $pin_day = $gpio->getOutputPin(33);
-        $pin_night = $gpio->getOutputPin(35);
+        $file = "/etc/fishtank/mode.txt";
 
         switch($state)
         {
             case 'day':
-                $pin_day->setValue(PinInterface::VALUE_HIGH);
-                $pin_night->setValue(PinInterface::VALUE_HIGH);
+                file_put_contents($file, 'day');
                 break;
 
             case 'night':
-                $pin_day->setValue(PinInterface::VALUE_LOW);
-                $pin_night->setValue(PinInterface::VALUE_LOW);
+                file_put_contents($file, 'night');
                 break;
 
             case 'off':
-                $pin_day->setValue(PinInterface::VALUE_LOW);
-                $pin_night->setValue(PinInterface::VALUE_HIGH);
+                file_put_contents($file, 'off');
                 break;
             default:
             //auto
         }
-    }
-
-    public static function set_day()
-    {
-        $gpio = new GPIO();
-
-        $pin_day = $gpio->getOutputPin(33);
-        $pin_night = $gpio->getOutputPin(35);
     }
 
 }
