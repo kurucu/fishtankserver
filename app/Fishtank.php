@@ -10,8 +10,6 @@ class Fishtank
 {
     public static function set($state)
     {
-        $file = "mode.txt";
-
         if( $state == 'auto' )
         {
             if( self::daylight() )
@@ -21,7 +19,7 @@ class Fishtank
                 Storage::disk('fishtank')->put($file, "night\n");
             }
         } else {
-            Storage::disk('fishtank')->put($file, $state . "\n");
+            Storage::disk('fishtank')->put( config('fishtank.file') , $state . "\n");
         }
     }
 
@@ -44,10 +42,9 @@ class Fishtank
             'time' => Carbon::now(),
             'timezone' => config('app.timezone'),
             'daylight' => self::daylight(),
+            'setting' => Setting::get('state', 'auto'),
+            'actual' => Storage::disk('fishtank')->get( config('fishtank.file') ),
         ];
     }
 
 }
-
-//33
-//35
