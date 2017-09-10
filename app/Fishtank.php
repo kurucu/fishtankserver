@@ -10,8 +10,7 @@ class Fishtank
 {
     public static function set($state)
     {
-        $file = config('fishtank.file')
-
+        $file = config('fishtank.file');
 
         if( $state == 'auto' )
         {
