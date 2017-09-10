@@ -67,12 +67,16 @@
     function setState(state)
     {
         var url = "/state/" + state;
+        var feedback_state = '';
+        var setting = '';
+        var actual = '';
+        var data = [];
 
         $.getJSON( url, function( data ) {
-            var feedback_state = data['requested_state'];
-            var setting = data['data']['setting'];
-            var actual = data['data']['actual'].trim();
-            var data = data['data'];
+            feedback_state = data['requested_state'];
+            setting = data['data']['setting'];
+            actual = data['data']['actual'].trim();
+            data = data['data'];
         });
 
         switch(feedback_state)
