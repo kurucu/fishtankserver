@@ -46,7 +46,10 @@ class DaylightChecker extends Command
         $desired_mode = Setting::get('state', 'auto');
 
         if($desired_mode != 'auto'){
-            Fishtank::set($desired_mode);
+            //Fishtank::set($desired_mode);
+            //TODO: There appears to be a bug where the tank turns the lights on.
+            //I only added the above line as a catch-all anyway, so this is not
+            //going to affect functionality. But should be fixed before release.
         } else {
             if($daylight == true)
             {
