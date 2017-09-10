@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'fishtank' => [
+            'driver' => 'fishtank',
+            'root' => '/etc/fishtank',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
