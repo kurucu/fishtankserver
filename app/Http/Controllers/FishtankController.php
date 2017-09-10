@@ -15,26 +15,19 @@ class FishtankController extends Controller
         return view('welcome');
     }
 
-    public function set_state(Request $request)
+    public function set_state($state = 'auto')
     {
-        $request->validate([
-            'state' => [
-                'required',
-                'string',
-                Rule::in(['day', 'night', 'auto', 'off']),
-            ],
-        ]);
+        if( !in_array($state, ['day', 'night', 'auto', 'off']))
+        {
+            $state = 'auto';
+        }
 
-        $state = $request->input('state');
-
-        Setting::set('state', $state );
+        Setting::set('state', $state);
         Fishtank::set($state);
 
-        return true;
+        return response()->json([
+            'requested_state' => $state
+        ]);;
     }
 
-    public function day()
-    {
-
-    }
 }
