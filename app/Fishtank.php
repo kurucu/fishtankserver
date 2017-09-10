@@ -10,6 +10,9 @@ class Fishtank
 {
     public static function set($state)
     {
+        $file = config('fishtank.file')
+
+
         if( $state == 'auto' )
         {
             if( self::daylight() )
@@ -19,7 +22,7 @@ class Fishtank
                 Storage::disk('fishtank')->put($file, "night\n");
             }
         } else {
-            Storage::disk('fishtank')->put( config('fishtank.file') , $state . "\n");
+            Storage::disk('fishtank')->put( $file , $state . "\n");
         }
     }
 
