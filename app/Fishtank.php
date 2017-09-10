@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Facades\Storage;
 
 use Carbon\Carbon;
+use Setting;
 
 class Fishtank
 {
