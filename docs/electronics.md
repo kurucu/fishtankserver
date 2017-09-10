@@ -7,6 +7,7 @@
   * 1.5m x 9.6W LED strip (1200 lumens).
   * Veroboard
   * Raspberry Pi
+  * Edimax USB Wifi dongle
   * AutomationHAT
   * 2 x Blue LEDs
   * Wire
@@ -16,3 +17,5 @@
 ## Method
 
 TBD
+
+(TODO: Add wifi and ssh set up, or at least links for such)
