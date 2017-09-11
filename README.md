@@ -18,6 +18,14 @@ It also provides a Laravel project which does two things:
 
 # Installation Method
 
+## Set Up the Pi
+
+You need to enable SSH on your Pi, either by connecting a monitor and keyboard and running "sudo raspi-config"; or by saving an empty file called "ssh" in the /boot partition before putting the SD card in the Pi.
+
+Then, plug in the EdiMax Wifi dongle, and configure your Wifi as detailed (here)[https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md]. Make sure the connection is working, and then disconnect the ethernet/keyboard and monitor. Perhaps connect via SSH one last time (via wifi) to make sure.
+
+While you might like to make the IP address static, you can also rely on Avahi (included with Raspbian) and then find your Pi automatically at `raspberrypi.local.`; or a hostname of your choosing.
+
 ## Electronics and Wiring
 
 Follow the guide [here](/docs/electronics.md) to wire up your Pi, or get ideas as to how you might do so.
@@ -43,7 +51,7 @@ mv composer.phar /usr/local/bin/composer
 
 You will then need to add the composer path to your $PATH, but editing ~./bashrc, using `nano ~/.bashrc`, and adding the following line:
 
-```
+```bash
 export PATH="/path/to/dir:$PATH"
 ```
 
@@ -55,17 +63,23 @@ Go to the default web location, set up the folder structure and pull in this rep
 you would change your /var/www to be owned by www-data, and then pull it in normally. But the below works if you don't know how to
 do that. It's an aquarium, so unless you're putting vital data in your fish tank, this is ok.
 
-```
+```bash
 cd /var/www
 sudo mv html html.back
 sudo git clone git@github.com:kurucu/fishtankserver.git
 sudo chmod 777 -R fishtankserver/storage
 sudo chmod 777 -R fishtankserver/logs
+# Create a database file
+sudo touch database/database.sqlite
+# Update the composer dependencies - this may take a while on a pi
+composer update
+# Migrate the database
+php artisan migrate
 ```
 
 You will now need to reconfigure ngingx to use the /var/www/fistankserver/public directory, and to use PHP, as follows:
 
-```
+```bash
 sudo nano /etc/nginx/sites-available/default
 ```
 
@@ -120,7 +134,7 @@ sudo chmod +x /etc/fishtank/fisktank.py
 
 Go and create a service definition file:
 
-```
+```bash
 cd /lib/systemd/system/
 sudo nano fishtank.service
 ```
@@ -145,7 +159,7 @@ Press `ctrl-o` (save), `enter` (confirm) and `ctrl-x` (exit).
 
 Now enable the service:
 
-```
+```bash
 sudo chmod 644 /lib/systemd/system/fishtank.service
 sudo systemctl daemon-reload
 sudo systemctl enable fishtank.service
@@ -154,7 +168,7 @@ sudo systemctl start fishtank.service
 
 In general:
 
-```
+```bash
 # Check status
 sudo systemctl status fishtank.service
 

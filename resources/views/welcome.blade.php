@@ -8,6 +8,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Fishtank">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+
     <title>Fishtank</title>
 </head>
 <body>
@@ -17,8 +22,8 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-body bg-success text-white" id="stateDivision">
-                        <h1 id="stateDivisionText">Day (Auto)</h1>
+                    <div class="card-body bg-danger text-white" id="stateDivision">
+                        <h1 id="stateDivisionText">Loading...</h1>
                     </div>
                 </div>
             </div>
@@ -29,7 +34,7 @@
                 <button type="button" class="btn btn-outline-success btn-lg btn-block" id="dayButton">Day</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-outline-info btn-lg btn-block active" id="autoButton">Auto</button>
+                <button type="button" class="btn btn-outline-info btn-lg btn-block" id="autoButton">Auto</button>
             </div>
             <div class="col">
                 <button type="button" class="btn btn-outline-dark btn-lg btn-block" id="nightButton">Night</button>
@@ -71,69 +76,84 @@
         $.getJSON( url, function( data ) {
             var feedback_state = data['requested_state'];
             var setting = data['data']['setting'];
-            var actual = data['data']['actual'].trim();
+            var actual = data['data']['actual'];
             var data = data['data'];
-
-            switch(feedback_state)
-            {
-                case('day'):
-                    $("#dayButton").addClass('active');
-                    $("#autoButton").removeClass('active');
-                    $("#nightButton").removeClass('active');
-                    $("#offButton").removeClass('active');
-                    break;
-                case('night'):
-                    $("#dayButton").removeClass('active');
-                    $("#autoButton").removeClass('active');
-                    $("#nightButton").addClass('active');
-                    $("#offButton").removeClass('active');
-                    break;
-                case('off'):
-                    $("#dayButton").removeClass('active');
-                    $("#autoButton").removeClass('active');
-                    $("#nightButton").removeClass('active');
-                    $("#offButton").addClass('active');
-                    break;
-                default:
-                    $("#dayButton").removeClass('active');
-                    $("#autoButton").addClass('active');
-                    $("#nightButton").removeClass('active');
-                    $("#offButton").removeClass('active');
-            }
-
-            switch(actual)
-            {
-                case('day'):
-                    $('#stateDivision').addClass('bg-success');
-                    $('#stateDivision').removeClass('bg-dark');
-                    $('#stateDivision').removeClass('bg-secondary');
-                    $('#stateDivision').removeClass('bg-danger');
-                    $('#stateDivisionText').text("Day (" + setting + ")");
-                    break;
-                case('night'):
-                    $('#stateDivision').removeClass('bg-success');
-                    $('#stateDivision').addClass('bg-dark');
-                    $('#stateDivision').removeClass('bg-secondary');
-                    $('#stateDivision').removeClass('bg-danger');
-                    $('#stateDivisionText').text("Night (" + setting + ")");
-                    break;
-                case('off'):
-                    $('#stateDivision').removeClass('bg-success');
-                    $('#stateDivision').removeClass('bg-dark');
-                    $('#stateDivision').addClass('bg-secondary');
-                    $('#stateDivision').removeClass('bg-danger');
-                    $('#stateDivisionText').text("Off (" + setting + ")");
-                    break;
-                default:
-                    $('#stateDivision').removeClass('bg-success');
-                    $('#stateDivision').removeClass('bg-dark');
-                    $('#stateDivision').removeClass('bg-secondary');
-                    $('#stateDivision').addClass('bg-danger');
-                    $('#stateDivisionText').text("Unknown (" + setting + ")");
-            }
-
-            //$('#backgroundData').text(JSON.stringify(data));
+            updateApp(feedback_state, actual, setting)
         });
+    }
+
+    function getState()
+    {
+        var url = "/get_state";
+
+        $.getJSON( url, function( data ) {
+            var feedback_state = data['requested_state'];
+            var setting = data['data']['setting'];
+            var actual = data['data']['actual'];
+            var data = data['data'];
+            updateApp(feedback_state, actual, setting)
+        });
+    }
+
+    function updateApp(state, actual, setting)
+    {
+        switch(state)
+        {
+            case('day'):
+                $("#dayButton").addClass('active');
+                $("#autoButton").removeClass('active');
+                $("#nightButton").removeClass('active');
+                $("#offButton").removeClass('active');
+                break;
+            case('night'):
+                $("#dayButton").removeClass('active');
+                $("#autoButton").removeClass('active');
+                $("#nightButton").addClass('active');
+                $("#offButton").removeClass('active');
+                break;
+            case('off'):
+                $("#dayButton").removeClass('active');
+                $("#autoButton").removeClass('active');
+                $("#nightButton").removeClass('active');
+                $("#offButton").addClass('active');
+                break;
+            default:
+                $("#dayButton").removeClass('active');
+                $("#autoButton").addClass('active');
+                $("#nightButton").removeClass('active');
+                $("#offButton").removeClass('active');
+        }
+
+        switch(actual)
+        {
+            case('day'):
+                $('#stateDivision').addClass('bg-success');
+                $('#stateDivision').removeClass('bg-dark');
+                $('#stateDivision').removeClass('bg-secondary');
+                $('#stateDivision').removeClass('bg-danger');
+                $('#stateDivisionText').text("Day (" + setting + ")");
+                break;
+            case('night'):
+                $('#stateDivision').removeClass('bg-success');
+                $('#stateDivision').addClass('bg-dark');
+                $('#stateDivision').removeClass('bg-secondary');
+                $('#stateDivision').removeClass('bg-danger');
+                $('#stateDivisionText').text("Night (" + setting + ")");
+                break;
+            case('off'):
+                $('#stateDivision').removeClass('bg-success');
+                $('#stateDivision').removeClass('bg-dark');
+                $('#stateDivision').addClass('bg-secondary');
+                $('#stateDivision').removeClass('bg-danger');
+                $('#stateDivisionText').text("Off (" + setting + ")");
+                break;
+            default:
+                $('#stateDivision').removeClass('bg-success');
+                $('#stateDivision').removeClass('bg-dark');
+                $('#stateDivision').removeClass('bg-secondary');
+                $('#stateDivision').addClass('bg-danger');
+                $('#stateDivisionText').text("Unknown (" + setting + ")");
+        }
     }
 
     $(document).ready(function() {
@@ -153,6 +173,8 @@
         $("#offButton").click(function(){
             setState("off");
         });
+
+        getState();
     });
 
     </script>

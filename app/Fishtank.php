@@ -13,16 +13,14 @@ class Fishtank
     {
         $file = config('fishtank.file');
 
-        if( $state == 'auto' )
-        {
-            if( self::daylight() )
-            {
+        if ($state == 'auto') {
+            if (self::daylight()) {
                 Storage::disk('fishtank')->put($file, "day\n");
             } else {
                 Storage::disk('fishtank')->put($file, "night\n");
             }
         } else {
-            Storage::disk('fishtank')->put( $file , $state . "\n");
+            Storage::disk('fishtank')->put($file, $state . "\n");
         }
     }
 
@@ -36,18 +34,21 @@ class Fishtank
         $sunrise = new Carbon(date_sunrise(time(), SUNFUNCS_RET_STRING, $latitude, $longitude));
         $sunset = new Carbon(date_sunset(time(), SUNFUNCS_RET_STRING, $latitude, $longitude));
 
-        return ( $now->gt($sunrise) && $now->lt($sunset) );
+        return ($now->gt($sunrise) && $now->lt($sunset));
     }
 
     public static function data()
     {
+        $fishtank_setting = Storage::disk('fishtank')->get(config('fishtank.file'));
+        //the file has a new line at the end
+        $fishtank_setting = trim($fishtank_setting);
+
         return [
             'time' => Carbon::now(),
             'timezone' => config('app.timezone'),
             'daylight' => self::daylight(),
             'setting' => Setting::get('state', 'auto'),
-            'actual' => Storage::disk('fishtank')->get( config('fishtank.file') ),
+            'actual' => $fishtank_setting,
         ];
     }
-
 }
