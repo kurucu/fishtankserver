@@ -54,7 +54,13 @@
                         <p>
                             It can take up to 10 seconds for the tank to notice your command.
                         </p>
-                        <pre id="backgroundData"></pre>
+                        <p>
+                            Current Date/Time: <span id="currentTime"></span>
+                        </p>
+                        <p>
+                            Sunrise Time: <span id="sunriseTime"></span><br />
+                            Sunset Time: <span id="sunsetTime"></span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -78,7 +84,7 @@
             var setting = data['data']['setting'];
             var actual = data['data']['actual'];
             var data = data['data'];
-            updateApp(feedback_state, actual, setting)
+            updateApp(feedback_state, actual, setting, data)
         });
     }
 
@@ -91,11 +97,11 @@
             var setting = data['data']['setting'];
             var actual = data['data']['actual'];
             var data = data['data'];
-            updateApp(feedback_state, actual, setting)
+            updateApp(feedback_state, actual, setting, data)
         });
     }
 
-    function updateApp(state, actual, setting)
+    function updateApp(state, actual, setting, data)
     {
         switch(state)
         {
@@ -154,6 +160,10 @@
                 $('#stateDivision').addClass('bg-danger');
                 $('#stateDivisionText').text("Unknown (" + setting + ")");
         }
+
+        $('#currentTime').text(data['time']);
+        $('#sunriseTime').text(data['sunrise']);
+        $('#sunsetTime').text(data['sunset']);
     }
 
     $(document).ready(function() {

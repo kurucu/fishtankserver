@@ -87,6 +87,7 @@ sudo touch database/database.sqlite
 composer update
 # Migrate the database
 php artisan migrate
+php artisan migrate --path=vendor/anlutro/l4-settings/src/migrations
 ```
 
 You will now need to reconfigure ngingx to use the /var/www/fistankserver/public directory, and to use PHP, as follows:
