@@ -30,6 +30,8 @@ class FishtankController extends Controller
         }
 
         Setting::set('state', $state);
+        Setting:save();
+        
         Fishtank::set($state);
 
         return response()->json([

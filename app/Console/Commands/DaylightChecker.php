@@ -54,6 +54,7 @@ class DaylightChecker extends Command
             }
         } else {
             Fishtank::set($desired_mode);
+            Setting:save();
         }
     }
 }
