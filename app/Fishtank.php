@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Support\Facades\Storage;
 
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 use Carbon\Carbon;
 use Setting;
 
