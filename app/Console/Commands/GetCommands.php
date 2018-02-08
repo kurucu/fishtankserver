@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
 use App\Fishtank;
+use Setting;
 
 class GetCommands extends Command
 {
@@ -53,7 +54,15 @@ class GetCommands extends Command
         if ($response->getStatusCode() == 200) {
             $data = json_decode($response->getBody());
             foreach ($data as $command) {
-                Fishtank::set($command->command);
+                $state = $command->command;
+                if (!in_array($state, ['day', 'night', 'auto', 'off'])) {
+                    $state = 'auto';
+                }
+
+                Setting::set('state', $state);
+                Setting::save();
+
+                Fishtank::set($state);
             }
         }
     }
