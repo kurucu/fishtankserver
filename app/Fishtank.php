@@ -12,16 +12,33 @@ class Fishtank
     public static function set($state)
     {
         $file = config('fishtank.file');
+        $api_state = '';
 
         if ($state == 'auto') {
             if (self::daylight()) {
                 Storage::disk('fishtank')->put($file, "day\n");
+                $api_state = 'day';
             } else {
                 Storage::disk('fishtank')->put($file, "night\n");
+                $api_state = 'night';
             }
         } else {
             Storage::disk('fishtank')->put($file, $state . "\n");
+            $api_state = $state;
         }
+
+
+        /*
+        * Tell the server what's going on
+        */
+        $client = new Client(); //GuzzleHttp\Client
+        $result = $client->post('https://iot.elliotali.com/api/status', [
+            'form_params' => [
+                'id' => env('DEVICE_ID', 1),
+                'key' => env('DEVICE_KEY', 'abcde'),
+                'status' => $api_state,
+            ]
+        ]);
     }
 
     public static function daylight()

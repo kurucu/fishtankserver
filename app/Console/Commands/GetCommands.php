@@ -43,7 +43,7 @@ class GetCommands extends Command
     public function handle()
     {
         $client = new Client(); //GuzzleHttp\Client
-        $result = $client->post('https://iot.elliotali.com/api/get_commands', [
+        $response = $client->post('https://iot.elliotali.com/api/get_commands', [
             'form_params' => [
                 'id' => env('DEVICE_ID', 1),
                 'key' => env('DEVICE_KEY', 'abcde'),
