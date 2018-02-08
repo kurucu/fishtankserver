@@ -25,8 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('daylight:check')->everyMinute();
-        $schedule->command('commands:process')->everyFiveMinutes();
-        //$schedule->command('status:send')->everyFiveMinutes();
+        $schedule->command('commands:process')->everyMinute();
     }
 
     /**
